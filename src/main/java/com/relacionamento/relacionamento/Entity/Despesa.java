@@ -1,23 +1,45 @@
 package com.relacionamento.relacionamento.Entity;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import java.io.Serializable;
+import java.math.BigDecimal;
+import java.util.Date;
 import java.util.List;
 
-public class SolicitacaoReembolsoDespesaEntity {
+import javax.persistence.*;
+
+import com.fasterxml.jackson.annotation.JsonFormat;
+
+
+/**
+ * The persistent class for the IMP_ITREEMBOLSO database table.
+ *
+ */
+@Entity
+@Table(name="despesa", schema="estudo")
+@NamedQuery(name="Despesa.findAll", query="SELECT i FROM Despesa i")
+public class Despesa implements Serializable {
+    private static final long serialVersionUID = 1L;
 
     @Id
+    @SequenceGenerator(name="despesa_GENERATOR", sequenceName="CD_DESPESA")
+    @GeneratedValue(strategy=GenerationType.SEQUENCE, generator="a_GENERATOR")
+    @Column(name="CD_DESPESA")
     private Long id;
+
     private String utilizador_matricula;
     private String utilizador_nome;
     private String id_tipo_reembolso;
     private String prestador_documento;
     private String data_despesa;
     private String valor_despsa;
-    private List<SolicitacaoReembolsoArquivoEntity> arquivos;
-    private Long cd_solic_reem;
+
+    @OneToMany(cascade = CascadeType.ALL)
+    @JoinColumn(name="CD_DESPESA")
+    private List<Arquivo> arquivos;
+
+    public static long getSerialVersionUID() {
+        return serialVersionUID;
+    }
 
     public Long getId() {
         return id;
@@ -75,19 +97,11 @@ public class SolicitacaoReembolsoDespesaEntity {
         this.valor_despsa = valor_despsa;
     }
 
-    public List<SolicitacaoReembolsoArquivoEntity> getArquivos() {
+    public List<Arquivo> getArquivos() {
         return arquivos;
     }
 
-    public void setArquivos(List<SolicitacaoReembolsoArquivoEntity> arquivos) {
+    public void setArquivos(List<Arquivo> arquivos) {
         this.arquivos = arquivos;
-    }
-
-    public Long getCd_solic_reem() {
-        return cd_solic_reem;
-    }
-
-    public void setCd_solic_reem(Long cd_solic_reem) {
-        this.cd_solic_reem = cd_solic_reem;
     }
 }

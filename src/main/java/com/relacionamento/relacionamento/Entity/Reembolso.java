@@ -1,15 +1,19 @@
 package com.relacionamento.relacionamento.Entity;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import java.io.Serializable;
+import java.util.List;
+import javax.persistence.*;
 
 @Entity
-public class SolicitacaoReembolsoEntity_ {
+@Table(name="reembolso", schema="estudo")
+@NamedQuery(name="Reembolso.findAll", query="SELECT i FROM Reembolso i")
+public class Reembolso implements Serializable {
+    private static final long serialVersionUID = 1L;
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @SequenceGenerator(name="reembolso", sequenceName="CD_REEMBOLSO")
+    @GeneratedValue(strategy=GenerationType.SEQUENCE, generator="r_GENERATOR")
+    @Column(name="CD_REEMBOLSO")
     private Long id;
     private String protocolo;
     private String id_operadora;
@@ -20,17 +24,27 @@ public class SolicitacaoReembolsoEntity_ {
     private String telefone;// nao obrigatorio
     private String nome_titular;// nao obrigatorio
     private String operadora_ans;// nao obrigatorio
-    //private List<ReembolsoDespesa> despesas;
     private String utilizado_matricula;
     private String utilizador_nome;
     private String id_tipo_reembolso;
     private String prestador_documento;
     private String data_despesa;
     private String valor_despsa;
-    //private List<ReembolsoArquivo> arquivos;
     private String url;
     private String nome;
     private String diretorio;
+
+    @OneToMany(cascade = CascadeType.ALL)
+    @JoinColumn(name="CD_REEMBOLSO")
+    private List<Despesa> despesas;
+
+    @OneToMany(cascade = CascadeType.ALL)
+    @JoinColumn(name="CD_REEMBOLSO")
+    private List<Arquivo> arquivos;
+
+    public static long getSerialVersionUID() {
+        return serialVersionUID;
+    }
 
     public Long getId() {
         return id;
@@ -182,5 +196,21 @@ public class SolicitacaoReembolsoEntity_ {
 
     public void setDiretorio(String diretorio) {
         this.diretorio = diretorio;
+    }
+
+    public List<Despesa> getDespesas() {
+        return despesas;
+    }
+
+    public void setDespesas(List<Despesa> despesas) {
+        this.despesas = despesas;
+    }
+
+    public List<Arquivo> getArquivos() {
+        return arquivos;
+    }
+
+    public void setArquivos(List<Arquivo> arquivos) {
+        this.arquivos = arquivos;
     }
 }
