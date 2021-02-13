@@ -1,12 +1,12 @@
 package com.relacionamento.relacionamento.Entity;
 
-public class ReembolsoRetornoSucesso {
+public class ReembolsoRetornoErro {
 
     private String protocolo;
     private String mshash;
     private String status = "2";
 
-    public ReembolsoRetornoSucesso(Reembolso reembolso) {
+    public ReembolsoRetornoErro(Reembolso reembolso) {
         this.protocolo = reembolso.getProtocolo();
         this.mshash = reembolso.getMshash();
     }
