@@ -3,6 +3,7 @@ package com.relacionamento.relacionamento.Entity;
 import java.io.Serializable;
 import java.util.List;
 import javax.persistence.*;
+import javax.validation.constraints.NotBlank;
 
 @Entity
 @Table(name="reembolso", schema="estudo")
@@ -15,23 +16,38 @@ public class Reembolso implements Serializable {
     @GeneratedValue(strategy=GenerationType.SEQUENCE, generator="r_GENERATOR")
     @Column(name="CD_REEMBOLSO")
     private Long id;
+    @NotBlank(message = "Campo [protocolo] inválido")
     private String protocolo;
+    @NotBlank(message = "Campo [id_operadora] inválido")
     private String id_operadora;
+    @NotBlank(message = "Campo [mshash] inválido")
     private String mshash;
+    @NotBlank(message = "Campo [matricula_titular] inválido")
     private String matricula_titular;
+    @NotBlank(message = "Campo [matricula_beneficiario] inválido")
     private String matricula_beneficiario;
+    @NotBlank(message = "Campo [cpf_titular] inválido")
     private String cpf_titular;
     private String telefone;// nao obrigatorio
     private String nome_titular;// nao obrigatorio
     private String operadora_ans;// nao obrigatorio
+    @NotBlank(message = "Campo [utilizado_matricula] inválido")
     private String utilizado_matricula;
+    @NotBlank(message = "Campo [utilizador_nome] inválido")
     private String utilizador_nome;
+    @NotBlank(message = "Campo [id_tipo_reembolso] inválido")
     private String id_tipo_reembolso;
+    @NotBlank(message = "Campo [prestador_documento] inválido")
     private String prestador_documento;
+    @NotBlank(message = "Campo [data_despesa] inválido")
     private String data_despesa;
+    @NotBlank(message = "Campo [valor_despsa] inválido")
     private String valor_despsa;
+    @NotBlank(message = "Campo [url] inválido")
     private String url;
+    @NotBlank(message = "Campo [nome] inválido")
     private String nome;
+    @NotBlank(message = "Campo [diretorio] inválido")
     private String diretorio;
 
     @OneToMany(cascade = CascadeType.ALL)
